@@ -85,25 +85,28 @@ elif input_method == "Use Sample Image":
     sample_type = st.sidebar.selectbox("Select Sample Type:", ["Defect", "Normal"])
     
     # Define sample paths (assuming data folder structure exists)
-    sample_dir = os.path.join("data", "val")
+    # Define sample paths
+    sample_dir = "sample_images"
     
     if sample_type == "Defect":
-        # Just picking a few specific files we know exist from the list
-        sample_files = [
-            "cast_def_0_0.jpeg",
-            "cast_def_0_100.jpeg",
-            "cast_def_0_1015.jpeg"
-        ]
-        selected_file = st.sidebar.selectbox("Choose a defect sample:", sample_files)
-        image_path = os.path.join(sample_dir, "defect", selected_file)
+        target_dir = os.path.join(sample_dir, "defect")
     else:
-        sample_files = [
-            "cast_ok_0_1018.jpeg",
-            "cast_ok_0_1021.jpeg",
-            "cast_ok_0_1028.jpeg"
-        ]
-        selected_file = st.sidebar.selectbox("Choose a normal sample:", sample_files)
-        image_path = os.path.join(sample_dir, "normal", selected_file)
+        target_dir = os.path.join(sample_dir, "normal")
+
+    if os.path.exists(target_dir):
+        # Get all image files
+        all_files = os.listdir(target_dir)
+        sample_files = [f for f in all_files if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+        
+        if sample_files:
+            selected_file = st.sidebar.selectbox(f"Choose a {sample_type.lower()} sample:", sample_files)
+            image_path = os.path.join(target_dir, selected_file)
+        else:
+            st.sidebar.warning(f"No images found in {target_dir}")
+            image_path = None
+    else:
+        st.sidebar.error(f"Directory not found: {target_dir}")
+        image_path = None
     
     if os.path.exists(image_path):
         image = Image.open(image_path).convert("RGB")
