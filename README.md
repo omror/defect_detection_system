@@ -1,5 +1,8 @@
 # Casting Product Defect Detection
 
+[![Hugging Face Spaces](https://img.shields.io/badge/🤗%20Hugging%20Face-Open%20in%20Spaces-blue.svg)](https://huggingface.co/spaces/omerfarukor/defect_detection_system/tree/main)
+
+
 A Streamlit app to detect manufacturing faults in casting products. I fine-tuned a **ResNet18** model to classify images as either "Defect" or "Normal".
 
 ## How it Works
