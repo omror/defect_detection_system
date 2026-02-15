@@ -46,12 +46,12 @@ Then run: `python src/train.py`
 Simply run the Streamlit app:
 
 ```bash
-streamlit run main.py
+streamlit run app.py
 
 ```
 
 ## Project Structure
 
-* `main.py`: Main app interface.
+* `app.py`: Main app interface.
 * `src/train.py`: Training script (PyTorch).
 * `src/preprocess.py`: Image transforms and loading logic.
